@@ -168,6 +168,8 @@ begin
   RegisterFunctionTable(Ole2Table);
   RegisterFunctionTable(LoggingTable);
   RegisterFunctionTable(OtherTable);
+  {fs 07/03/2019}
+  RegisterFunctionTable(cabStcTable);
 
   RegisterConst('MaxInt', MaxInt);
 

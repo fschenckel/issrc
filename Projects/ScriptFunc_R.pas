@@ -27,7 +27,7 @@ uses
   Struct, ScriptDlg, Main, PathFunc, CmnFunc, CmnFunc2, FileClass, RedirFunc,
   Install, InstFunc, InstFnc2, Msgs, MsgIDs, NewDisk, BrowseFunc, Wizard, VerInfo,
   SetupTypes, Int64Em, MD5, SHA1, Logging, SetupForm, RegDLL, Helper,
-  SpawnClient, UninstProgressForm, ASMInline, DotNet;
+  SpawnClient, UninstProgressForm, ASMInline, DotNet, InnoSetup.StcAddon;
 
 var
   ScaleBaseUnitsInitialized: Boolean;
@@ -2016,6 +2016,20 @@ begin
     Result := False;
 end;
 
+{ cabSTCProc }
+function cabSTCProc(Caller: TPSExec; Proc: TPSExternalProcRec; Global, Stack: TPSStack): Boolean;
+var
+  PStart: Cardinal;
+begin
+  PStart := Stack.Count-1;
+  Result := True;
+
+  if Proc.Name = 'INITIALIZECABSTCSETUP' then begin
+    Stack.SetUInt(PStart, InitializeCabStcSetup(Stack.GetString(PStart-1)));
+  end else
+    Result := False;
+end;
+
 {---}
 
 procedure ScriptFuncLibraryRegister_R(ScriptInterpreter: TPSExec);
@@ -2069,6 +2083,7 @@ begin
   RegisterFunctionTable(Ole2Table, @Ole2Proc);
   RegisterFunctionTable(LoggingTable, @LoggingProc);
   RegisterFunctionTable(OtherTable, @OtherProc);
+  RegisterFunctionTable(cabStcTable, @cabSTCProc);
 
   ScriptInterpreter.RegisterDelphiFunction(@_FindFirst, 'FindFirst', cdRegister);
   ScriptInterpreter.RegisterDelphiFunction(@_FindNext, 'FindNext', cdRegister);

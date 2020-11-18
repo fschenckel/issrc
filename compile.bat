@@ -14,7 +14,7 @@ if exist compilesettings.bat goto compilesettingsfound
 echo compilesettings.bat is missing or incomplete. It needs to be created
 echo with the following line, adjusted for your system:
 echo.
-echo   set DELPHIXEROOT=C:\Program Files\Embarcadero\RAD Studio\20.0 [Path to Delphi 10.3 Rio (or later)]
+echo   set DELPHIXEROOT=C:\Program Files\Embarcadero\RAD Studio\21.0 [Path to Delphi 10.4 Sydney (or later)]
 goto failed2
 
 :compilesettingsfound
@@ -29,6 +29,10 @@ rem  carries some settings (e.g. $APPTYPE) between projects
 rem  if multiple projects are specified on the command line.
 
 set DELPHIXEDISABLEDWARNINGS=-W-SYMBOL_DEPRECATED -W-SYMBOL_PLATFORM -W-UNSAFE_CAST -W-EXPLICIT_STRING_CAST -W-EXPLICIT_STRING_CAST_LOSS -W-IMPLICIT_INTEGER_CAST_LOSS -W-IMPLICIT_CONVERSION_LOSS
+set BASEPATH=%DELPHIXEROOT%\lib\win32\release;..\components;..\components\unips\source
+set PROJECTSEARCHPATH=%STCHomeProject%\Library\GraceTimeHandling;%BDSCOMPONENTSDIR%\kbLib\Sources;%STCHomeProject%\Tests\Serial;%STCHomeProject%\Tests\Serial\Encryption;%BDSCOMPONENTSDIR%\LockBox3\packages\Sydney\Delphi\Win32\Release
+set JCLPATH=%BDSCOMPONENTSDIR%\jcl\jcl\lib\d27\win32
+
 
 cd Projects
 if errorlevel 1 goto exit
@@ -51,7 +55,7 @@ echo - ISCC.dpr
 if errorlevel 1 goto failed
 
 echo - ISCmplr.dpr
-"%DELPHIXEROOT%\bin\dcc32.exe" --no-config -NSsystem;system.win;winapi -Q -B -H -W %DELPHIXEDISABLEDWARNINGS% %1 -U"%DELPHIXEROOT%\lib\win32\release;..\Components;..\Components\UniPs\Source;ISPP" -E..\Files -DPS_MINIVCL;PS_NOGRAPHCONST;PS_PANSICHAR;PS_NOINTERFACEGUIDBRACKETS ISCmplr.dpr
+"%DELPHIXEROOT%\bin\dcc32.exe" --no-config -NSsystem;system.win;winapi -Q -B -H -W %DELPHIXEDISABLEDWARNINGS% %1 -U"%BASEPATH%;%PROJECTSEARCHPATH%;%JCLPATH%;ISPP" -E..\Files -DPS_MINIVCL;PS_NOGRAPHCONST;PS_PANSICHAR;PS_NOINTERFACEGUIDBRACKETS ISCmplr.dpr
 if errorlevel 1 goto failed
 
 echo - SetupLdr.dpr
@@ -59,7 +63,7 @@ echo - SetupLdr.dpr
 if errorlevel 1 goto failed
 
 echo - Setup.dpr
-"%DELPHIXEROOT%\bin\dcc32.exe" --no-config -NSsystem;system.win;winapi;vcl -Q -B -W %DELPHIXEDISABLEDWARNINGS% %1 -U"%DELPHIXEROOT%\lib\win32\release;..\Components;..\Components\UniPs\Source" -E..\Files -DPS_MINIVCL;PS_NOGRAPHCONST;PS_PANSICHAR;PS_NOINTERFACEGUIDBRACKETS Setup.dpr
+"%DELPHIXEROOT%\bin\dcc32.exe" --no-config -NSsystem;system.win;winapi;vcl -Q -B -W %DELPHIXEDISABLEDWARNINGS% %1 -U"%BASEPATH%;%PROJECTSEARCHPATH%;%JCLPATH%" -E..\Files -DPS_MINIVCL;PS_NOGRAPHCONST;PS_PANSICHAR;PS_NOINTERFACEGUIDBRACKETS Setup.dpr
 if errorlevel 1 goto failed
 
 echo - Renaming E32 files

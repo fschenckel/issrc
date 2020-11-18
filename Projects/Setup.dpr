@@ -71,7 +71,13 @@ uses
   SpawnCommon in 'SpawnCommon.pas',
   SpawnServer in 'SpawnServer.pas',
   SpawnClient in 'SpawnClient.pas',
-  TaskDialog in 'TaskDialog.pas';
+  TaskDialog in 'TaskDialog.pas',
+  InnoSetup.StcAddon in '..\..\..\Projects\Studio code\trunk\Library\InnoSetupHelper\InnoSetup.StcAddon.pas',
+  Gracetime.Helper in '..\..\..\Projects\Studio code\trunk\Library\GraceTimeHandling\Gracetime.Helper.pas',
+  GraceTime.Types in '..\..\..\Projects\Studio code\trunk\Library\GraceTimeHandling\GraceTime.Types.pas',
+  EncryptDecryptHelper in '..\..\..\Projects\Studio code\trunk\Tests\Serial\Encryption\EncryptDecryptHelper.pas',
+  NTReg in '..\..\..\Projects\Studio code\trunk\Tests\Serial\NTReg.pas',
+  uKBDynamic in '..\..\kblib\Sources\uKBDynamic.pas';
 
 {$R *.RES}
 {$IFDEF UNICODE}

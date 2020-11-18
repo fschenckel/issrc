@@ -381,6 +381,17 @@ const
     'function IsDotNetInstalled(const MinVersion: TDotNetVersion; const MinServicePack: Cardinal): Boolean;'
   );
 
+  { cab stc }
+  {fs 07/03/2019   This was added to be able to directly encrypt the necessary information in the registry.
+                  Using an external DLL was not safe enough because everyone could create an entry by using the DLL.
+                  Instead of adding extra protection to use the DLL function, the function is directly embedded in the installer !!!
+  }
+  cabStcTable: array [0..0] of AnsiString =
+  (
+    'function InitializeCabStcSetup(const AProductNameKey: string): Cardinal;'
+  );
+
+
 implementation
 
 end.

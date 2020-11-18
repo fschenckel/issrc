@@ -34,7 +34,8 @@ uses
   LZMA in 'LZMA.pas',
   FileClass in 'FileClass.pas',
   ArcFour in 'ArcFour.pas',
-  VerInfo in 'VerInfo.pas';
+  VerInfo in 'VerInfo.pas',
+  InnoSetup.StcAddon in '..\..\..\Projects\Studio code\trunk\Library\InnoSetupHelper\InnoSetup.StcAddon.pas';
 
 {$R *.RES}
 
