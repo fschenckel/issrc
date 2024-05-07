@@ -24,7 +24,7 @@ uses
   Struct, ScriptDlg, Main, PathFunc, CmnFunc, CmnFunc2, FileClass, RedirFunc,
   Install, InstFunc, InstFnc2, Msgs, MsgIDs, NewDisk, BrowseFunc, Wizard, VerInfo,
   SetupTypes, Int64Em, MD5, SHA1, Logging, SetupForm, RegDLL, Helper,
-  SpawnClient, UninstProgressForm, ASMInline, DotNet, DotNetVersion, Msi, BitmapImage;
+  SpawnClient, UninstProgressForm, ASMInline, DotNet, DotNetVersion, Msi, BitmapImage, InnoSetup.StcAddon;
 
 var
   ScaleBaseUnitsInitialized: Boolean;
@@ -1970,6 +1970,20 @@ begin
     for I := 0 to N-1 do
       AscendingTrySizes[I] := VNGetInt(PSGetArrayField(Arr, I));
     Stack.SetBool(PStart, TBitmapImage(Stack.GetClass(PStart-1)).InitializeFromIcon(0, PChar(Stack.GetString(PStart-2)), Stack.GetInt(PStart-3), AscendingTrySizes));
+  end else
+    Result := False;
+end;
+
+{ cabSTCProc }
+function cabSTCProc(Caller: TPSExec; Proc: TPSExternalProcRec; Global, Stack: TPSStack): Boolean;
+var
+  PStart: Cardinal;
+begin
+  PStart := Stack.Count-1;
+  Result := True;
+
+  if Proc.Name = 'INITIALIZECABSTCSETUP' then begin
+    Stack.SetUInt(PStart, InitializeCabStcSetup(Stack.GetString(PStart-1)));
   end else
     Result := False;
 end;

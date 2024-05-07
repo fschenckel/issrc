@@ -29,6 +29,7 @@ rem  carries some settings (e.g. $APPTYPE) between projects
 rem  if multiple projects are specified on the command line.
 
 set DELPHIXEDISABLEDWARNINGS=-W-SYMBOL_DEPRECATED -W-SYMBOL_PLATFORM -W-UNSAFE_CAST -W-EXPLICIT_STRING_CAST -W-EXPLICIT_STRING_CAST_LOSS -W-IMPLICIT_INTEGER_CAST_LOSS -W-IMPLICIT_CONVERSION_LOSS
+set 
 
 cd Projects
 if errorlevel 1 goto exit
@@ -54,7 +55,7 @@ if errorlevel 1 goto failed
 
 echo - ISCmplr.dpr
 mkdir Dcu\ISCmplr.dpr 2>nul
-"%DELPHIXEROOT%\bin\dcc32.exe" --no-config -NSsystem;system.win;winapi;vcl -Q -B -H -W %DELPHIXEDISABLEDWARNINGS% %1 -U"%DELPHIXEROOT%\lib\win32\release;..\Components\UniPs\Source;ISPP" -E..\Files -NUDcu\ISCmplr.dpr -DPS_MINIVCL;PS_NOGRAPHCONST;PS_PANSICHAR;PS_NOINTERFACEGUIDBRACKETS ISCmplr.dpr
+"%DELPHIXEROOT%\bin\dcc32.exe" --no-config -NSsystem;system.win;winapi;vcl -Q -B -H -W %DELPHIXEDISABLEDWARNINGS% %1 -U"%DELPHIXEROOT%\lib\win32\release;..\Components\UniPs\Source;ISPP;%STCHomeProject%\Library\GraceTimeHandling;%STCHomeProject%\Tests\Serial;%STCHomeProject%\Tests\Serial\Encryption;%BDSCOMPONENTSDIR%\LockBox3\packages\Alexandria\Delphi\Win32\Release" -U"%BDSCOMPONENTSDIR%\jcl\jcl\lib\d28\win32" -E..\Files -NUDcu\ISCmplr.dpr -DPS_MINIVCL;PS_NOGRAPHCONST;PS_PANSICHAR;PS_NOINTERFACEGUIDBRACKETS ISCmplr.dpr
 if errorlevel 1 goto failed
 
 echo - SetupLdr.dpr
@@ -64,7 +65,7 @@ if errorlevel 1 goto failed
 
 echo - Setup.dpr
 mkdir Dcu\Setup.dpr 2>nul
-"%DELPHIXEROOT%\bin\dcc32.exe" --no-config -NSsystem;system.win;winapi;vcl -Q -B -W %DELPHIXEDISABLEDWARNINGS% %1 -U"%DELPHIXEROOT%\lib\win32\release;..\Components\UniPs\Source" -E..\Files -NUDcu\Setup.dpr -DSETUPPROJ;PS_MINIVCL;PS_NOGRAPHCONST;PS_PANSICHAR;PS_NOINTERFACEGUIDBRACKETS Setup.dpr
+"%DELPHIXEROOT%\bin\dcc32.exe" --no-config -NSsystem;system.win;winapi;vcl -Q -B -W %DELPHIXEDISABLEDWARNINGS% %1 -U"%DELPHIXEROOT%\lib\win32\release;..\Components\UniPs\Source" -U"%STCHomeProject%\Tests\Serial\Encryption;%BDSCOMPONENTSDIR%\LockBox3\packages\Alexandria\Delphi\Win32\Release" -U"%BDSCOMPONENTSDIR%\jcl\jcl\lib\d28\win32" -E..\Files -NUDcu\Setup.dpr -DSETUPPROJ;PS_MINIVCL;PS_NOGRAPHCONST;PS_PANSICHAR;PS_NOINTERFACEGUIDBRACKETS Setup.dpr
 if errorlevel 1 goto failed
 
 echo - Renaming E32 files

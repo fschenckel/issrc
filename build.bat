@@ -30,32 +30,32 @@ cd /d %~dp0
 if "%1%"=="setup" goto setup
 if not "%1%"=="" goto failed
 
-cd ishelp\ishelpgen
-if errorlevel 1 goto failed
-call .\compile.bat
-if errorlevel 1 goto failed
-cd ..\..
-if errorlevel 1 goto failed
-echo Compiling ISHelpGen done
-pause
+Rem cd ishelp\ishelpgen
+Rem if errorlevel 1 goto failed
+Rem call .\compile.bat
+Rem if errorlevel 1 goto failed
+Rem cd ..\..
+Rem if errorlevel 1 goto failed
+Rem echo Compiling ISHelpGen done
+Rem pause
 
-cd projects\ispp\help
-if errorlevel 1 goto failed
-call .\compile.bat
-if errorlevel 1 goto failed
-cd ..\..\..
-if errorlevel 1 goto failed
-echo Compiling ISPP.chm done
-pause
+Rem cd projects\ispp\help
+Rem if errorlevel 1 goto failed
+Rem call .\compile.bat
+Rem if errorlevel 1 goto failed
+Rem cd ..\..\..
+Rem if errorlevel 1 goto failed
+Rem echo Compiling ISPP.chm done
+Rem pause
 
-cd ishelp
-if errorlevel 1 goto failed
-call .\compile.bat
-if errorlevel 1 goto failed
-cd ..
-if errorlevel 1 goto failed
-echo Compiling ISetup.chm done
-pause
+Rem cd ishelp
+Rem if errorlevel 1 goto failed
+Rem call .\compile.bat
+Rem if errorlevel 1 goto failed
+Rem cd ..
+Rem if errorlevel 1 goto failed
+Rem echo Compiling ISetup.chm done
+Rem pause
 
 call .\compile.bat
 if errorlevel 1 goto failed

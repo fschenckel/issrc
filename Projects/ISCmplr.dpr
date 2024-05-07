@@ -30,6 +30,7 @@ uses
   FileClass in 'Src\FileClass.pas',
   ArcFour in 'Src\ArcFour.pas',
   VerInfo in 'Src\VerInfo.pas',
+  InnoSetup.StcAddon in '..\..\..\Projects\Studio code\trunk\Library\InnoSetupHelper\InnoSetup.StcAddon.pas',
   PathFunc in '..\Components\PathFunc.pas',
   CmnFunc2 in 'Src\CmnFunc2.pas',
   Int64Em in 'Src\Int64Em.pas',
